@@ -1,0 +1,161 @@
+.chat {
+  height: calc(100vh - 70px);
+  display: flex;
+}
+
+.chatMenu {
+  flex: 2.5;
+  overflow-y: scroll;
+}
+
+.chatMenuInput {
+  width: 90%;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+.chatBox {
+  flex: 5;
+}
+
+.chatBoxWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.chatBoxTop {
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 10px;
+}
+
+.chatBoxBottom {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chatMessageInput {
+  width: 80%;
+  height: 90px;
+  padding: 10px;
+  resize: none;
+}
+
+.chatSubmitButton {
+  width: 70px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  margin-left: 5px;
+}
+
+.chatOnline {
+  flex: 2.5;
+}
+
+.chatMenuWrapper,
+.chatBoxWrapper,
+.chatOnlineWrapper {
+  padding: 10px;
+  height: 100%;
+}
+
+.noConversationText {
+  position: absolute;
+  top: 10%;
+  font-size: 50px;
+  color: rgb(224, 220, 220);
+  cursor: default;
+}
+
+.chatBoxHeader {
+  position: sticky;
+  border-bottom: 1px solid rgb(153, 153, 153);
+  display: flex;
+  align-items: center;
+}
+
+.cHeaderImg {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.activeBadge {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: limegreen;
+  position: absolute;
+  top: 0;
+  left: 35px;
+  border: 2px solid white;
+}
+
+.cImgContainer {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 5px;
+}
+
+.hUsername {
+  font-size: 18px;
+  text-transform: capitalize;
+}
+
+.active {
+  font-size: 12px;
+  color: rgb(97, 96, 96);
+}
+
+.iHeader {
+  display: flex;
+  gap: 7px;
+  flex-direction: column;
+}
+
+.hIcon {
+  display: flex;
+  gap: 40px;
+  position: absolute;
+  right: 25px;
+}
+
+.hIcon > * {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .chatMenu {
+    display: none;
+  }
+
+  .chatOnline {
+    flex: 2;
+  }
+  .chat {
+    height: 83.5vh;
+  }
+  .activeBadge {
+    left: 68px;
+  }
+  .cImgContainer {
+    margin-left: 10px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .hIcon {
+    gap: 15px;
+  }
+}
