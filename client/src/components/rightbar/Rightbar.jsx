@@ -17,7 +17,7 @@ export default function Rightbar({ user }) {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io('ws://localhost:4000');
+    socket.current = io('https://socket-0gbu.onrender.com');
   }, []);
 
   useEffect(() => {
@@ -37,8 +37,10 @@ export default function Rightbar({ user }) {
     setFollowed(currentUser.followings.includes(user?._id));
     const getFriends = async () => {
       try {
-        const friendList = await axios.get('/users/friends/' + user?._id);
-        setFriends(friendList.data);
+        if (user) {
+          const friendList = await axios.get('/users/friends/' + user?._id);
+          setFriends(friendList.data);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -66,12 +68,6 @@ export default function Rightbar({ user }) {
   const HomeRightbar = () => {
     return (
       <>
-        <div className='birthdayContainer'>
-          <img className='birthdayImg' src='assets/gift.png' alt='' />
-          <span className='birthdayText'>
-            <b>Jane Doe</b> and <b>3 other friends</b> have a birhday today.
-          </span>
-        </div>
         <a href='https://www.lamborghini.com/en-en' target='_blank'>
           <img
             className='rightbarAd'

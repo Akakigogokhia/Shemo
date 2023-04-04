@@ -35,8 +35,12 @@ function ChatOnline({ onlineUsers, currentId, setCurrentChat, user }) {
 
   useEffect(() => {
     const getFriends = async () => {
-      const res = await axios.get('/users/friends/' + currentId);
-      setFriends(res.data);
+      try {
+        if (currentId) {
+          const res = await axios.get('/users/friends/' + currentId);
+          setFriends(res.data);
+        }
+      } catch (error) {}
     };
     getFriends();
   }, [currentId]);

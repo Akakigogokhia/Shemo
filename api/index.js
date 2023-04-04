@@ -56,6 +56,10 @@ app.use('/api/posts', postRoute);
 app.use('/api/conversations', convRoute);
 app.use('/api/messages', msgRoute);
 
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
+
 app.listen(5000, () => {
   console.log('Listening to port 5000');
 });

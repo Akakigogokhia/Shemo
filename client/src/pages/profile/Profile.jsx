@@ -20,8 +20,10 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`/users?username=${username}`);
-      setUser(res.data);
+      try {
+        const res = await axios.get(`/users?username=${username}`);
+        setUser(res.data);
+      } catch (error) {}
     };
     fetchUser();
   }, [username]);

@@ -46,13 +46,19 @@ export default function Chat() {
     };
   }, []);
 
+  const handleChange = (e) => {
+    setNewMessage(e.target.value);
+  };
+
   const checkActive = (conv) => {
     const friendId = conv.members.find((member) => member !== user._id);
     return onlineUsers?.some((u) => u.userId === friendId);
   };
 
   useEffect(() => {
-    socket.current = io('ws://localhost:4000', { reconnection: false });
+    socket.current = io('https://socket-0gbu.onrender.com', {
+      reconnection: false,
+    });
     socket.current.on('getMessage', (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -112,30 +118,32 @@ export default function Chat() {
   }, [currentChat]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (newMessage.length > 0) {
-      const message = {
-        sender: user._id,
-        text: newMessage,
-        conversationId: currentChat._id,
-      };
+    if (e.keyCode === 13 || !e.key) {
+      if (newMessage.length > 0) {
+        e.preventDefault();
+        const message = {
+          sender: user._id,
+          text: newMessage,
+          conversationId: currentChat._id,
+        };
 
-      const receiverId = currentChat.members.find(
-        (member) => member !== user._id
-      );
+        const receiverId = currentChat.members.find(
+          (member) => member !== user._id
+        );
 
-      socket.current.emit('sendMessage', {
-        senderId: user._id,
-        receiverId,
-        text: newMessage,
-      });
+        socket.current.emit('sendMessage', {
+          senderId: user._id,
+          receiverId,
+          text: newMessage,
+        });
 
-      try {
-        const res = await axios.post('/messages', message);
-        setMessages([...messages, res.data]);
-        setNewMessage('');
-      } catch (err) {
-        console.log(err);
+        try {
+          const res = await axios.post('/messages', message);
+          setMessages([...messages, res.data]);
+          setNewMessage('');
+        } catch (err) {
+          console.log(err);
+        }
       }
     }
   };
@@ -223,8 +231,9 @@ export default function Chat() {
                   <textarea
                     className='chatMessageInput'
                     placeholder='Write a message...'
-                    onChange={(e) => setNewMessage(e.target.value)}
+                    onChange={handleChange}
                     value={newMessage}
+                    onKeyDown={handleSubmit}
                   ></textarea>
                   <button className='chatSubmitButton' onClick={handleSubmit}>
                     Send
